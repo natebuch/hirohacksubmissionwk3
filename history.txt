@@ -1,0 +1,27 @@
+#V2
+(contract-call? .core construct .bootstrap)
+::get_assetts_maps
+::get_assets_maps
+(contract-call? .core construct .bootstrap)
+::get_assets_maps
+(contract-call? .proposal-submission "Enable Vault" "Enables vault extensions with 1000 membership tokens) ) ) ) ")
+(contract-call? .proposal-submission propose "Enable Vault" "Enables vault extensions with 1000 membership tokens")
+(contract-call? .proposal-submission propose .vault-proposal "Enable Vault" "Enables vault extensions with 1000 membership tokens")
+(contract-call? .proposal-submission propose .vault-proposal "Enable Vault" u"Enables vault extensions with 1000 membership tokens")
+(contract-call? .proposal-voting vote u1000 true .vault-proposal)
+::help
+::advance_chain_tip 2000
+(contract-call? .proposal-voting conclude .vault-proposal)
+::get_assets_maps
+(contract-call? .proposal-submission propose .community-vault-proposal "Enable Vault" u"Enables vault extensions with 1000 membership tokens")
+(contract-call? .proposal-submission propose .community-vault-proposal "Enable Vault" u"Enables vault extensions with 1000 membership tokens" u5 u200)
+::reload
+(contract-call? .proposal-submission propose .community-vault-proposal "Enable Vault" u"Enables vault extensions with 1000 membership tokens" u5 u200)
+(contract-call? .core construct .bootstrap)
+(contract-call? .proposal-submission propose .community-vault-proposal "Enable Vault" u"Enables vault extensions with 1000 membership tokens" u5 u200)
+(contract-call? .proposal-submission propose .vault-proposal "Enable Vault" u"Enables vault extensions with 1000 membership tokens" u5 u200)
+(contract-call? .proposal-voting vote u1000 true .vault-proposal)
+::advance_chain_tip 2000
+(contract-call? .proposal-voting conclude .vault-proposal)
+::get_assets_maps
+::reload
