@@ -101,6 +101,7 @@
       (proposal-data (unwrap! (map-get? proposals (contract-of proposal)) ERR_UNKNOWN_PROPOSAL))
       (data 
         {
+          proposal-id: (get id proposal-data),
           proposer: (get proposer proposal-data),
           milestones: (get milestones proposal-data),
           grant-amount: (get grant-amount proposal-data),
@@ -115,7 +116,7 @@
     (map-set proposals (contract-of proposal) (merge proposal-data {concluded: true, passed: passed}))
     (print {event: "conclude", proposal: proposal, passed: passed})
     (and passed (try! (contract-call? .core execute proposal tx-sender)))
-    (try! (contract-call? .milestone-disbursement add-grant (get id proposal-data) data))
+    (try! (contract-call? .milestone-disbursement add-grant (contract-of proposal) data))
     (ok passed)
   )
 )

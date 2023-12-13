@@ -17,8 +17,9 @@
 
 
 ;; data maps
-(define-map grants uint
+(define-map grants principal
   { 
+    proposal-id: uint,
     proposer: principal,
     milestones: uint,
     grant-amount: uint,
@@ -33,9 +34,10 @@
 )
 
 (define-public 
-  (add-grant (id uint)
+  (add-grant (proposal principal)
     (data 
       {
+        proposal-id: uint,
         proposer: principal, 
         milestones: uint,
         grant-amount: uint,
@@ -46,22 +48,22 @@
   )
   (begin
     (try! (is-dao-or-extension))
-    (ok (asserts! (map-insert grants id data) (err u5004)))
+    (ok (asserts! (map-insert grants proposal data) (err u5004)))
   )
 )
 
 ;;mint and disburse function
-(define-public (disburse-funds (grant principal) (amount uint) (proposal-id uint))
+(define-public (disburse-funds (grant principal) (amount uint))
    (let
     ( 
-      (grant-data (unwrap! (map-get? grants proposal-id) ERR_GRANT_NOT_FOUND))
+      (grant-data (unwrap! (map-get? grants grant) ERR_GRANT_NOT_FOUND))
       (new-milestones (- (get milestones grant-data) u1))
     )
     (begin
       (try! (is-dao-or-extension))
       (asserts! (get active grant-data) ERR_GRANT_INACTIVE)
       (asserts! (<= amount (get grant-amount grant-data)) ERR_AMOUNT_EXCEEDS_TOTAL_GRANT_AMOUNT)
-      (map-set grants proposal-id 
+      (map-set grants grant
          (merge grant-data {grant-amount: amount, milestones: new-milestones})
       )
       (try! (as-contract (contract-call? .vault vault-transfer-stx amount grant)))
@@ -70,15 +72,15 @@
   )
 )
 
-(define-public (deactivate-grant (proposal-id uint))
+(define-public (deactivate-grant (grant principal))
   (let
     ( 
-      (grant-data (unwrap! (map-get? grants proposal-id) ERR_GRANT_NOT_FOUND))
+      (grant-data (unwrap! (map-get? grants grant) ERR_GRANT_NOT_FOUND))
     )
     (begin 
       (asserts! (or (is-eq tx-sender .core) (contract-call? .core is-extension contract-caller)) ERR_UNAUTHORIZED)
       (asserts! (get active grant-data) ERR_GRANT_INACTIVE)
-      (map-set grants proposal-id
+      (map-set grants grant
         (merge grant-data {active: false})
       )
       (ok true)
