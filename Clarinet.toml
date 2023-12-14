@@ -10,6 +10,11 @@ path = 'contracts/bootstrap.clar'
 clarity_version = 2
 epoch = 2.4
 
+[contracts.community-vault]
+path = 'contracts/community-vault.clar'
+clarity_version = 2
+epoch = 2.4
+
 [contracts.core]
 path = 'contracts/core.clar'
 clarity_version = 2
@@ -45,13 +50,18 @@ path = 'contracts/proposal-voting.clar'
 clarity_version = 2
 epoch = 2.4
 
+[contracts.test-grant]
+path = 'contracts/test-grant.clar'
+clarity_version = 2
+epoch = 2.4
+
 [contracts.vault]
 path = 'contracts/vault.clar'
 clarity_version = 2
 epoch = 2.4
 
-[contracts.vault-proposal]
-path = 'contracts/vault-proposal.clar'
+[contracts.community-vault-proposal]
+path = 'contracts/community-vault-proposal.clar'
 clarity_version = 2
 epoch = 2.4
 [repl.analysis]

@@ -29,7 +29,7 @@
   (ok (asserts! (or (is-eq tx-sender .core) (contract-call? .core is-extension contract-caller)) ERR_UNAUTHORIZED))
 )
 
-(define-public (propose (proposal <proposal-trait>) (title (string-ascii 50)) (description (string-utf8 500)) (milestones uint) (grant-amount uint))
+(define-public (propose (proposal <proposal-trait>) (title (string-ascii 50)) (description (string-utf8 500)) (grant-amount uint) (withdraw-amount uint))
   (let 
      (
       (id (var-get proposal-id))
@@ -45,8 +45,8 @@
           proposer: tx-sender,
           title: title,
           description: description,
-          milestones: milestones,
-          grant-amount: grant-amount
+          grant-amount: grant-amount,
+          withdraw-amount: u0
         }
       )
     )

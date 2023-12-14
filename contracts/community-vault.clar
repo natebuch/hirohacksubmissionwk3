@@ -1,4 +1,4 @@
-;; title: vault
+;; title: community-vault
 ;; version:
 ;; summary:
 ;; description:
@@ -48,5 +48,4 @@
 (define-read-only (vault-get-stx-balance)
   (as-contract (stx-get-balance tx-sender))
 )
-
 

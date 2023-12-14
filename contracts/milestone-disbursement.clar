@@ -12,18 +12,15 @@
 (define-constant ERR_GRANT_NOT_FOUND (err u5002))
 (define-constant ERR_GRANT_INACTIVE (err u5003))
 (define-constant ERR_AMOUNT_EXCEEDS_TOTAL_GRANT_AMOUNT (err u5004))
-(define-constant ERR_GRANT_ALREADY_EXISTS (err u5005))
-(define-constant ERR_VAULT_FUNDS_INSUFFICIENT (err u5005))
-
 
 ;; data maps
 (define-map grants principal
   { 
     proposal-id: uint,
     proposer: principal,
-    milestones: uint,
     grant-amount: uint,
     amount-disbursed: uint,
+    withdraw-amount: uint,
     active: bool,
   }
 )
@@ -33,15 +30,19 @@
   (ok (asserts! (or (is-eq tx-sender .core) (contract-call? .core is-extension contract-caller)) ERR_UNAUTHORIZED))
 )
 
+;;Need function here that allows principal of the grant to initiate another proposal that sets
+;;grant amount to 0 but adds a withdraw amount.  Would not be recorded as a grant, just a proposal to approve 
+;;if it is judged that a milestone is reached.  Hit proposal voting function not proposal submission.
+
 (define-public 
   (add-grant (proposal principal)
     (data 
       {
         proposal-id: uint,
         proposer: principal, 
-        milestones: uint,
         grant-amount: uint,
         amount-disbursed: uint,
+        withdraw-amount: uint,
         active: bool
       }
     )
@@ -57,14 +58,13 @@
    (let
     ( 
       (grant-data (unwrap! (map-get? grants grant) ERR_GRANT_NOT_FOUND))
-      (new-milestones (- (get milestones grant-data) u1))
     )
     (begin
       (try! (is-dao-or-extension))
       (asserts! (get active grant-data) ERR_GRANT_INACTIVE)
       (asserts! (<= amount (get grant-amount grant-data)) ERR_AMOUNT_EXCEEDS_TOTAL_GRANT_AMOUNT)
       (map-set grants grant
-         (merge grant-data {grant-amount: amount, milestones: new-milestones})
+         (merge grant-data {grant-amount: amount})
       )
       (try! (as-contract (contract-call? .vault vault-transfer-stx amount grant)))
       (ok true)
@@ -91,7 +91,6 @@
 (define-public (callback (sender principal) (memo (buff 34)))
   (ok true)
 )
-;;view grant details
 
 ;; read only functions
 ;;

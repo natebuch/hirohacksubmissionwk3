@@ -38,8 +38,8 @@
     proposer: principal,
     title: (string-ascii 50),
     description: (string-utf8 500),
-    milestones: uint,
-    grant-amount: uint
+    grant-amount: uint,
+    withdraw-amount: uint
   }
 )
 
@@ -63,8 +63,8 @@
         proposer: principal, 
         title: (string-ascii 50), 
         description: (string-utf8 500),
-        milestones: uint,
-        grant-amount: uint
+        grant-amount: uint,
+        withdraw-amount: uint
       }
     )
   )
@@ -103,8 +103,8 @@
         {
           proposal-id: (get id proposal-data),
           proposer: (get proposer proposal-data),
-          milestones: (get milestones proposal-data),
           grant-amount: (get grant-amount proposal-data),
+          withdraw-amount: (get withdraw-amount proposal-data),
           amount-disbursed: u0,
           active: true
         }
