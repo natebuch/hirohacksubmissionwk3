@@ -30,10 +30,6 @@
   (ok (asserts! (or (is-eq tx-sender .core) (contract-call? .core is-extension contract-caller)) ERR_UNAUTHORIZED))
 )
 
-;;Need function here that allows principal of the grant to initiate another proposal that sets
-;;grant amount to 0 but adds a withdraw amount.  Would not be recorded as a grant, just a proposal to approve 
-;;if it is judged that a milestone is reached.  Hit proposal voting function not proposal submission.
-
 (define-public 
   (add-grant (proposal principal)
     (data 
@@ -53,7 +49,7 @@
   )
 )
 
-;;mint and disburse function
+;;disburse function
 (define-public (disburse-funds (grant principal) (amount uint))
    (let
     ( 

@@ -1,4 +1,3 @@
-
 ;; title: bootstrap
 ;; version:
 ;; summary:
@@ -28,6 +27,8 @@
 				{extension: .membership-token, enabled: true}
 				{extension: .proposal-voting, enabled: true}
 				{extension: .proposal-submission, enabled: true}
+				{extension: .milestone-disbursement, enabled: true}
+				{extension: .grant-vault, enabled: true}
 				{extension: .vault, enabled: true}
 			)
 		))

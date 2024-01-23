@@ -5,7 +5,7 @@
 ;; description:
 
 ;; traits
-;;
+(impl-trait .extension-trait.extension-trait)
 
 ;; token definitions
 (define-fungible-token sGrant)
@@ -79,6 +79,9 @@
   (ok (var-get tokenUri))
 )
 
+(define-public (callback (sender principal) (memo (buff 34)))
+  (ok true)
+)
 ;; private functions
 (define-private (mint-many-iter (item {amount: uint, recipient: principal}))
 	(ft-mint? sGrant (get amount item) (get recipient item))

@@ -116,7 +116,7 @@
     (map-set proposals (contract-of proposal) (merge proposal-data {concluded: true, passed: passed}))
     (print {event: "conclude", proposal: proposal, passed: passed})
     (and passed (try! (contract-call? .core execute proposal tx-sender)))
-    (try! (contract-call? .milestone-disbursement add-grant (contract-of proposal) data))
+    ;; (try! (contract-call? .milestone-disbursement add-grant (contract-of proposal) data))
     (ok passed)
   )
 )

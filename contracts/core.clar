@@ -1,4 +1,3 @@
-
 ;; title: core
 ;; version:
 ;; summary:
@@ -25,6 +24,15 @@
 (define-map extensions principal bool)
 
 ;; public functions
+
+(define-public (test)
+  (begin
+    (print "Test --- Hello world")
+    (ok u1)
+  )
+)
+
+
 (define-public (set-extension (extension principal) (enabled bool))
   (begin
     (try! (is-self-or-extension))

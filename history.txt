@@ -25,3 +25,15 @@
 (contract-call? .proposal-voting conclude .vault-proposal)
 ::get_assets_maps
 ::reload
+(contract-call? .boostrap execute tx-sender)
+(contract-call? .bootstrap execute tx-sender)
+(contract-call? .core execute tx-sender)
+(contract-call? .core execute .bootstrap tx-sender)
+(contract-call? .core set-extension .bootstrap true)
+(contract-call? .core construct .bootstrap)
+(contract-call? .core construct)
+(contract-call? .core construct .bootstrap)
+(contract-call? .proposal-submission propose test test u100 u100)
+(contract-call? .proposal-submission propose .proposal-trait test test u100 u100)
+(contract-call? .proposal-submission propose .proposal test test u100 u100)
+(contract-call? .proposal-submission propose proposal-trait test test u100 u100)

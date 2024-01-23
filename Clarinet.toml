@@ -6,12 +6,12 @@ telemetry = true
 cache_dir = './.cache'
 requirements = []
 [contracts.bootstrap]
-path = 'contracts/bootstrap.clar'
+path = 'contracts/proposals/bootstrap.clar'
 clarity_version = 2
 epoch = 2.4
 
-[contracts.community-vault]
-path = 'contracts/community-vault.clar'
+[contracts.grants-vault]
+path = 'contracts/extensions/grants-vault.clar'
 clarity_version = 2
 epoch = 2.4
 
@@ -21,51 +21,44 @@ clarity_version = 2
 epoch = 2.4
 
 [contracts.extension-trait]
-path = 'contracts/extension-trait.clar'
+path = 'contracts/traits/extension-trait.clar'
 clarity_version = 2
 epoch = 2.4
 
 [contracts.membership-token]
-path = 'contracts/membership-token.clar'
+path = 'contracts/extensions/membership-token.clar'
 clarity_version = 2
 epoch = 2.4
 
 [contracts.milestone-disbursement]
-path = 'contracts/milestone-disbursement.clar'
+path = 'contracts/extensions/milestone-disbursement.clar'
 clarity_version = 2
 epoch = 2.4
 
 [contracts.proposal-submission]
-path = 'contracts/proposal-submission.clar'
+path = 'contracts/extensions/proposal-submission.clar'
 clarity_version = 2
 epoch = 2.4
 
 [contracts.proposal-trait]
-path = 'contracts/proposal-trait.clar'
+path = 'contracts/traits/proposal-trait.clar'
 clarity_version = 2
 epoch = 2.4
 
 [contracts.proposal-voting]
-path = 'contracts/proposal-voting.clar'
+path = 'contracts/extensions/proposal-voting.clar'
 clarity_version = 2
 epoch = 2.4
 
 [contracts.test-grant]
-path = 'contracts/test-grant.clar'
+path = 'contracts/test_proposals/test-grant.clar'
 clarity_version = 2
 epoch = 2.4
 
 [contracts.vault]
-path = 'contracts/vault.clar'
+path = 'contracts/extensions/vault.clar'
 clarity_version = 2
 epoch = 2.4
-
-[contracts.community-vault-proposal]
-path = 'contracts/community-vault-proposal.clar'
-clarity_version = 2
-epoch = 2.4
-[repl.analysis]
-passes = []
 
 [repl.analysis.check_checker]
 strict = false

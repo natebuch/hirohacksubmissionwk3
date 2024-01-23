@@ -1,4 +1,4 @@
-;; title: community-vault
+;; title: grant-vault
 ;; version:
 ;; summary:
 ;; description:
@@ -8,7 +8,7 @@
 
 ;; constants
 (define-constant ERR_UNAUTHORIZED (err u4001))
-(define-constant ERR_VAULT_STACKS_BALANCE_INSUFFICIENT (err u4002))
+(define-constant ERR_GRANT_VAULT_STACKS_BALANCE_INSUFFICIENT (err u4002))
 
 ;; data vars
 ;;
@@ -21,17 +21,17 @@
   (ok (asserts! (or (is-eq tx-sender .core) (contract-call? .core is-extension contract-caller)) ERR_UNAUTHORIZED))
 )
 
-(define-public (vault-transfer-membership-token (amount uint) (recipient principal))
+(define-public (grant-vault-transfer-membership-token (amount uint) (recipient principal))
   (begin 
     (try! (is-dao-or-extension))
     (as-contract (contract-call? .membership-token transfer amount tx-sender recipient))
   )
 )
 
-(define-public (vault-transfer-stx (amount uint) (recipient principal))
+(define-public (grant-vault-transfer-stx (amount uint) (recipient principal))
   (begin 
     (try! (is-dao-or-extension))
-    (asserts! (<= (vault-get-stx-balance) amount) ERR_VAULT_STACKS_BALANCE_INSUFFICIENT)
+    (asserts! (<= (grant-vault-get-stx-balance) amount) ERR_GRANT_VAULT_STACKS_BALANCE_INSUFFICIENT)
     (as-contract (stx-transfer? amount tx-sender recipient))
   )
 )
@@ -41,11 +41,11 @@
 )
 
 ;; read only functions
-(define-read-only (vault-get-membership-token-balance)
+(define-read-only (grant-vault-get-membership-token-balance)
   (as-contract (contract-call? .membership-token get-balance tx-sender))
 )
 
-(define-read-only (vault-get-stx-balance)
+(define-read-only (grant-vault-get-stx-balance)
   (as-contract (stx-get-balance tx-sender))
 )
 

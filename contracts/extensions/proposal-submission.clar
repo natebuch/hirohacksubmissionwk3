@@ -1,4 +1,3 @@
-
 ;; title: proposal-submission
 ;; version:
 ;; summary:
@@ -22,14 +21,14 @@
 ;; data maps
 (define-map parameters (string-ascii 34) uint)
 
-(map-set parameters "proposal-duration" u1440) ;; ~10 days based on a ~10 minute block time.
+(map-set parameters "proposal-duration" u10) ;; ~10 days based on a ~10 minute block time.
 
 ;; public functions
 (define-public (is-dao-or-extension)
   (ok (asserts! (or (is-eq tx-sender .core) (contract-call? .core is-extension contract-caller)) ERR_UNAUTHORIZED))
 )
 
-(define-public (propose (proposal <proposal-trait>) (title (string-ascii 50)) (description (string-utf8 500)) (grant-amount uint) (withdraw-amount uint))
+(define-public (propose (proposal <proposal-trait>) (title (string-ascii 50)) (description (string-utf8 500)) (grant-amount uint))
   (let 
      (
       (id (var-get proposal-id))
